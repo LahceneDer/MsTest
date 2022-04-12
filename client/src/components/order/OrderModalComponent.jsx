@@ -25,7 +25,17 @@ const OrderModalComponent = ({ data , setIsOpen}) => {
       
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="h5" > {selectedRow.id} </Typography>
+          <Typography 
+            style={{ 
+              textTransform: "capitalize" , width:"90%", backgroundColor: '#4089bc', color:'white', padding:"1%", margin:".5% auto"
+              }} variant="h5" > Order details </Typography>
+        </Grid>
+        <Grid item xs={4} >
+          <img src='order.png' width="100%" alt="profile" />
+        </Grid>
+        <Grid item xs={8} style={{textAlign:'left', padding: "1%"}} >
+          <Typography style={{textTransform: "capitalize"}} >Number of products:  {selectedRow.NoOfProducts}</Typography>
+          <Typography style={{textTransform: "capitalize"}} >amount:  {selectedRow.amount}</Typography>
         </Grid>
       </Grid>
       <Button 
@@ -36,7 +46,7 @@ const OrderModalComponent = ({ data , setIsOpen}) => {
             boxShadow: '0 0 4px 0 #3f51b5'
 
              }} 
-        variant='contained' color='secondary' onClick={() => setIsOpen(false)} >Close</Button>
+        variant='contained' size='large' color='secondary' onClick={() => setIsOpen(false)} >Close</Button>
     </div>
   )
 }

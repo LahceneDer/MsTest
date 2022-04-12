@@ -25,7 +25,17 @@ const SupplierModalComponent = ({ data , setIsOpen}) => {
       
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="h5" > {selectedRow.name} </Typography>
+          <Typography 
+            style={{ 
+              textTransform: "capitalize" , width:"90%", backgroundColor: '#4089bc', color:'white', padding:"1%", margin:".5% auto"
+              }} variant="h5" > Supplier details </Typography>
+        </Grid>
+        <Grid item xs={4} >
+          <img src='profil.jpg' width="100%" alt="profile" />
+        </Grid>
+        <Grid item xs={8} style={{textAlign:'left', padding: "1%"}} >
+          <Typography>name:  {selectedRow.name}</Typography>
+          <Typography>address:  {selectedRow.address}</Typography>
         </Grid>
       </Grid>
       <Button 
@@ -36,7 +46,7 @@ const SupplierModalComponent = ({ data , setIsOpen}) => {
             boxShadow: '0 0 4px 0 #3f51b5'
 
              }} 
-        variant='contained' color='secondary' onClick={() => setIsOpen(false)} >Close</Button>
+        variant='contained' size='large' color='secondary' onClick={() => setIsOpen(false)} >Close</Button>
     </div>
   )
 }

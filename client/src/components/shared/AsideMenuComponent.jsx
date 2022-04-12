@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
   menu: {
     backgroundColor: "#fff",
-    height: '100vh'
+    height: '90vh',
+    boxShadow: '0 0 5px 0 #3f51b5'
   },
   menuItem: {
     textDecoration: 'none',

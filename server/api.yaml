@@ -1,0 +1,104 @@
+swagger: "2.0"
+info:
+  title: - MsTest swagger UI Docs - 
+  description: MsTest documentation made by Lahcene DERGHAM .
+  version: 1.0
+  contact:
+    email: l.dergham@esi-sba.dz
+  liscence:
+    name: ME
+  servers:
+    -url: http://localhost:4000
+    description: THis is my local Server
+schemes: [http]
+
+paths:
+  /suppliers:
+    get:
+      summary: return suppliers
+      description: It is just returning a list of suppliers
+      responses:
+        200:
+          description: success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                address:
+                  type: string
+
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+
+#Get Request with path id
+  /suppliers/{supplierId}:
+    get:
+      summary: Returns a supplier by ID.
+      description: Returns the Specific Supplier
+      parameters:
+        - name: supplierId
+          in: path
+          required: true
+          schema:
+            type : integer
+            format: int64
+      responses: 
+        '200':
+          description: OK
+          schema:
+            type: object
+            example: {id: 0, name: lahcene, address: alger}
+
+
+# For Orders
+  /orders:
+      get:
+        summary: return orders
+        description: It is just returning a list of orders
+        responses:
+          200:
+            description: success
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  NoOfProducts:
+                    type: integer
+                  amount:
+                    type: number
+                  supplierId:
+                    type: integer
+
+          400:
+            description: User Error
+          500:
+            description: Internal Server Error
+
+  #Get Request with path id
+  /orders/{orderId}:
+    get:
+      summary: Returns a order by ID.
+      description: Returns the Specific Order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type : integer
+            format: int64
+      responses: 
+        '200':
+          description: OK
+          schema:
+            type: object
+            example: { id: 1001,NoOfProducts: 4528,amount: 64.19,createdAt: "2022-04-10T13:41:23.000Z",updatedAt: "2022-04-10T13:41:23.000Z",supplierId: null}

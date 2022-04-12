@@ -3,34 +3,21 @@ const cors = require('cors');
 const sequelize = require('./utils/database')
 const bodyParser = require('body-parser')
 const path = require('path')
+const YAML = require('yamljs')
 
 //models
 const Supplier = require('./models/supplier')
 const Order = require('./models/order')
 
-// routes
+//routes
 const supplierRouter = require('./routes/supplier')
 const orderRouter = require('./routes/order')
 
 //swagger
-const swaggerJsdoc = require('swagger-jsdoc')
+const swaggerJsdoc = YAML.load('./api.yaml') // require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
-const swaggerOptions = {
-    swaggerDefinition: {
-        info: {
-            title: 'MSTest',
-            description: 'Microservice Test - Nodejs with React js',
-            contact: {
-                name:'Lahcene Dergham',
-                email: "l.dergham@esi-sba.dz", 
-            },
-            servers: ['http://localhost:4000']
-        }
-    },
-    apis: [`${path.join(__dirname, "./routes/*.js")}`]
-}
 
-const swaggerDocs = swaggerJsdoc(swaggerOptions)
+
 
 
 //settings
@@ -40,25 +27,11 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 
-// routes/order.js
-
-
 
 //middlewares
 app.use(supplierRouter)
-
-// orders
-/** 
-* @swagger
-* components:
-*  schemas:
-*       Order: object
-*       properties:
-*           name:
-*               type: string
-*/
 app.use(orderRouter)
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc))
 
 app.use('/', (req, res, next) => {
     res.render('index')

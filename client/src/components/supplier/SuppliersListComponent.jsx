@@ -27,7 +27,7 @@ const SuppliersListComponent = () => {
         <Grid item xs={2}>
           <AsideMenuComponent />
         </Grid>
-        <Grid item xs={10} style={{marginTop:'10px'}}>
+        <Grid item xs={10} style={{marginTop:'10px', padding: '1.5%'}}>
 
         <Button onClick={() => {handleData()}} variant='contained' color='primary' > add fake data</Button>
         {isOpen && selectedSupplier && (
