@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MaterialTable from '@material-table/core';
 import { getOrderById, getOrders } from '../../controllers/orderControllers';
-import { Button, Grid } from '@material-ui/core';
-import NavbarComponent from '../shared/NavbarComponent';
-import AsideMenuComponent from '../shared/AsideMenuComponent';
+import { Button } from '@material-ui/core';
 import { handleFakeData } from '../../controllers/orderControllers';
 import OrderModalComponent from './OrderModalComponent';
+import { GlobalContext } from '../../context/globalContext';
 
 const OrdersListComponent = () => {
     const [orders, setOrders] = useState([])
@@ -13,25 +12,29 @@ const OrdersListComponent = () => {
     const [isOpen, setIsOpen] = useState(false)
     // get selected order detail
     const [selectedOrder, setSelectedOrder] = useState({})
+    // use global context - Context API
+    const  initialState  = useContext(GlobalContext)
+    // Number of orders state
+    const [ordersCount, setOrdersCount] = useState(0)
+
 
     useEffect(() => {
-        getOrders(setOrders)
+        getOrders(setOrders,setOrdersCount)
+        console.log(initialState);
       },[])
 
+      useEffect(() => {
+        initialState.ordersCount = ordersCount
+        // initialState.orders = orders 
+        console.log(initialState);  
+      },[ordersCount])
     const handleData = () => {
         handleFakeData(setOrders)
     }
   return (
+<>
 
-    <Grid container spacing={0} >
-    <Grid item xs={12} >
-      <NavbarComponent />
-    </Grid>
-    <Grid item xs={2}>
-      <AsideMenuComponent />
-    </Grid>
-    <Grid item xs={10} style={{marginTop:'10px', padding: '1.5%'}} >
-        <Button onClick={() => handleData()} variant='contained' color='primary' > add fake data</Button>
+<Button onClick={() => handleData()} variant='contained' color='primary' > add fake data</Button>
         {isOpen && selectedOrder && (
           <OrderModalComponent setIsOpen={setIsOpen} data={selectedOrder} />
         )}
@@ -60,10 +63,7 @@ const OrdersListComponent = () => {
               getOrderById(setSelectedOrder,rowData.id)
             } }
         />
-    </Grid>
-  </Grid>
-
-    
+</>
   )
 }
 

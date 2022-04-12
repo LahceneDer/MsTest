@@ -1,18 +1,25 @@
 import { Grid } from '@material-ui/core';
-import { createContext, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Index from './components/dashboard/Index';
+import OrdersListComponent from './components/order/OrdersListComponent';
 import AsideMenuComponent from './components/shared/AsideMenuComponent';
 import NavbarComponent from './components/shared/NavbarComponent';
+import SuppliersListComponent from './components/supplier/SuppliersListComponent';
+import { GlobalContext  } from './context/globalContext'
+
 
 
 
 function App() {
-  const dataCountContext = createContext({"suppliers": 0, "orders": 0})
-  const [dataCount, setDataCount] = useState({})
+
+  const initialState = {}
+
   return (
-    <dataCountContext.Provider value={dataCount} >
+      <GlobalContext.Provider value={initialState} >
       <div className="App">
+       <BrowserRouter>
         <Grid container spacing={0} >
           <Grid item xs={12} >
             <NavbarComponent />
@@ -20,12 +27,17 @@ function App() {
           <Grid item xs={2}>
             <AsideMenuComponent />
           </Grid>
-          <Grid item xs={10}>
-            <Index />
+          <Grid item xs={10} style={{marginTop:'10px', padding: '1.5%'}}>
+            <Routes>
+              <Route path="/home" element={<Index />} />
+              <Route path="/orders" element={<OrdersListComponent />} />
+              <Route path="/suppliers" element={<SuppliersListComponent />} />
+            </Routes>
           </Grid>
         </Grid>
+        </BrowserRouter>
       </div>
-    </dataCountContext.Provider>
+      </GlobalContext.Provider>
   );
 }
 

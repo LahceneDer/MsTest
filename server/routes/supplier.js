@@ -1,6 +1,6 @@
 const express = require('express');
 const supplierController = require('../controllers/supplierController')
-const router = express()
+const router = express.Router();
 
 //Request all suppliers from db => API
 router.get('/suppliers', (req, res, next) => {

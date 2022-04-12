@@ -1,35 +1,40 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MaterialTable from '@material-table/core';
 import { getSupplierById, getSuppliers, handleFakeData } from '../../controllers/supplierControllers'
-import { Button, Grid } from '@material-ui/core';
-import AsideMenuComponent from '../shared/AsideMenuComponent';
-import NavbarComponent from '../shared/NavbarComponent';
+import { Button } from '@material-ui/core';
+
 import SupplierModalComponent from './SupplierModalComponent';
+import { GlobalContext } from '../../context/globalContext';
 
 const SuppliersListComponent = () => {
+
+  // Suppliers array state
   const [suppliers, setSuppliers] = useState([])
+  // Number of suppliers state
+  const [suppliersCount, setSuppliersCount] = useState(0)
+  // modal popup state
   const [isOpen, setIsOpen] = useState(false)
+  // selected supplier when double click
   const [selectedSupplier, setSelectedSupplier] = useState({})
+  // use global context - Context API
+  const  initialState  = useContext(GlobalContext)
 
   useEffect(() => {
-    getSuppliers(setSuppliers)
+    getSuppliers(setSuppliers, setSuppliersCount)
   },[])
+
+  useEffect(() => {
+    initialState.suppliersCount = suppliersCount
+    console.log(initialState); 
+  },[suppliersCount])
 
   const handleData = () => {  
     handleFakeData(setSuppliers) 
   }
   
   return (
-    <Grid container spacing={0} >
-        <Grid item xs={12} >
-          <NavbarComponent />
-        </Grid>
-        <Grid item xs={2}>
-          <AsideMenuComponent />
-        </Grid>
-        <Grid item xs={10} style={{marginTop:'10px', padding: '1.5%'}}>
-
-        <Button onClick={() => {handleData()}} variant='contained' color='primary' > add fake data</Button>
+      <>
+      <Button onClick={() => {handleData()}} variant='contained' color='primary' > add fake data</Button>
         {isOpen && selectedSupplier && (
           <SupplierModalComponent setIsOpen={setIsOpen} data={selectedSupplier} />
         )}
@@ -37,8 +42,8 @@ const SuppliersListComponent = () => {
               title="Suppliers"
               columns={[
                 { title: 'Id', field: 'id' },
-                { title: 'Name', field: 'name' },
-                { title: 'address', field: 'address' },
+                { title: 'Name', field: 'name', type: 'string' },
+                { title: 'address', field: 'address', type: 'string' },
               ]}
               data={suppliers}        
               options={{
@@ -57,9 +62,7 @@ const SuppliersListComponent = () => {
                 getSupplierById(setSelectedSupplier,rowData.id)
               } }
           />
-            </Grid>
-              
-      </Grid>
+      </>
   )
 }
     

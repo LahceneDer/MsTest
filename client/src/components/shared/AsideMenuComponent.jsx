@@ -19,7 +19,7 @@ const AsideMenuComponent = () => {
   const classes = useStyles();
   return (
     <MenuList className={classes.menu} >
-      <Link className={classes.menuItem} to="/" >
+      <Link className={classes.menuItem} to="/home" >
         <MenuItem>
           Home 
         </MenuItem>

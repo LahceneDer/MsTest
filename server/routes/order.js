@@ -1,6 +1,6 @@
 const express = require('express');
 const orderController = require('../controllers/orderController')
-const router = express()
+const router = express.Router();
 
 
 // Request all orders from db => API

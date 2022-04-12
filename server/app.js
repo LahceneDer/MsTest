@@ -14,7 +14,7 @@ const supplierRouter = require('./routes/supplier')
 const orderRouter = require('./routes/order')
 
 //swagger
-const swaggerJsdoc = YAML.load('./api.yaml') // require('swagger-jsdoc')
+const swaggerJsdoc = YAML.load('./api.yaml')
 const swaggerUi = require('swagger-ui-express')
 
 
