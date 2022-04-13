@@ -10,5 +10,9 @@ COPY package-lock.json ./
 RUN npm i
 # add app
 COPY . ./
+
+# client port
+EXPOSE 3000
+
 # start app
 CMD ["npm", "start"]
